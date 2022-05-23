@@ -1,0 +1,20 @@
+spring:
+  cloud.stream:
+    function.definition: evenOddNumberProcessor
+    kafka:
+      binder:
+        defaultBrokerPort: 29092
+      bindings:
+        evenOddNumberProcessor-in-0:
+          consumer:
+            enableDlq: false
+        evenOddNumberProcessor-out-0:
+          producer.configuration:
+            key.serializer: org.apache.kafka.common.serialization.StringSerializer
+    bindings:
+      evenOddNumberProcessor-in-0:
+        destination: number-0
+        group: number-api
+      evenOddNumberProcessor-out-0:
+        destination: even-odd-number-0
+server.port: 8091
